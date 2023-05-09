@@ -17,16 +17,14 @@ class App extends Component {
 
   onChangeHandler = e => this.setState({text: e.target.value})
 
-  onSubmitHandler = e => {
+  onSubmitHandler = () => {
     this.setState({todos: [...this.state.todos, this.state.text]})
     this.setState({text: ""})
   }
 
-  // onDeleteHandler = () => {
-  //   this.state.todos.filter(i => {
-
-  //   })
-  // }
+  onDeleteHandler = idx => {
+    this.setState({todos: this.state.todos.filter((todo, i) => i !== idx)})
+  }
 
   render() {
     return (
@@ -38,10 +36,12 @@ class App extends Component {
         <button type='submit' onClick={this.onSubmitHandler}>Submit</button>
         <ol>
           {this.state.todos.map((todo, idx) => {
-            return <li key={idx}>
-              {todo}
-              <button type='button'>Delete</button>
+            return (
+              <li key={idx}>
+                {todo}
+                <button type='button' onClick={() => this.onDeleteHandler(idx)}>Delete</button>
               </li>
+            )
           })}
         </ol>
       </div>
